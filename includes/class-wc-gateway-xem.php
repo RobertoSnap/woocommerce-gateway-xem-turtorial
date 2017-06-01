@@ -278,7 +278,7 @@ class WC_Gateway_Xem extends WC_Payment_Gateway {
     /**
      * Initialise Gateway Settings Form Fields
      */
-    public function init_form_fields() {
+    public function  init_form_fields() {
         $this->form_fields = include('wc-gateway-xem-settings.php');
 
         wc_enqueue_js("

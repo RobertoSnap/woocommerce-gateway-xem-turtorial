@@ -72,16 +72,6 @@
 
 
         },
-        updateXemAmount: function () {
-            this.ajaxGetXemAmount().done(function (res) {
-                console.log(res);
-
-                if(res.success === true && res.data.amount > 0){
-                    $(this.amountWrapper).text(res.data.amount)
-                }
-            });
-
-        },
         checkForXemPayment: function () {
             this.nanobar.go(25);
             $.ajax({
@@ -97,24 +87,15 @@
                 //console.log("Match: " + res.data.match);
                 if(res.success === true && res.data.match === true){
                     $( '#place_order' ).attr( 'disabled', false);
+                    //Todo: only simulate pay when all stanard checkout field is filled out
                     $( '#place_order' ).trigger( 'click');
+                    return;
                 }
                 setTimeout(function() {
                     xemPayment.checkForXemPayment();
                 }, 5000);
             });
             this.nanobar.go(100);
-        },
-
-        ajaxGetXemAmount: function () {
-            return $.ajax({
-                url: wc_xem_params.wc_ajax_url,
-                type: 'post',
-                data: {
-                    action: 'woocommerce_get_xem_amount',
-                    nounce: wc_xem_params.nounce
-                }
-            })
         }
     };
 

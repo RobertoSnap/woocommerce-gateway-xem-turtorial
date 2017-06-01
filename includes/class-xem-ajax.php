@@ -99,12 +99,13 @@ class Xem_Ajax {
 		//If we also want to do amount matching
 		$amount = WC()->cart->total;
 		$currency = strtoupper( get_woocommerce_currency() );
+		//Todo: If locked and new amount diff to much, we can call a refresh.
 		//Todo: If too high difference becuase of price volatility, add notice to lock in new amount. The customer has probably waited to long.
-		$xem_amout = Xem_Currency::get_xem_amount($amount, $currency);
+		//$xem_amout = Xem_Currency::get_xem_amount($amount, $currency);
 		$xem_amount_locked = WC()->session->get('xem_amount');
 		//Remove the currency
 		$xem_amount_locked = intval(str_replace('.', '', $xem_amount_locked));
-		//Todo: If locked and new amount diff to much, we can call a refresh.
+
 
 		//Get latest transactions from NEW
 		include_once ('class-nem-api.php');
@@ -113,36 +114,21 @@ class Xem_Ajax {
 		if(!$transactions){
 			self::error("No transactions from NEM");
 		}
-		$message_match = false;
 		$message_amount_match = false;
-		$amount_match = false;
 		$matched_transaction = false;
-		$decimal_amount_precision = 0;
+		$decimal_amount_precision = 1;
 		foreach ($transactions as $key => $t){
 			$message = self::hex2str($t->transaction->message->payload);
 			//Check for matching message
 			if( $ref_id === $message ){
-				$message_match = true;
 				//Check for matching, only need to check that its atleast
                 $xem_amount_lock_check = round($xem_amount_locked / 1000000,$decimal_amount_precision);
                 $xem_amount_transaction_check = round($t->transaction->amount / 1000000,$decimal_amount_precision);
 				if( $xem_amount_lock_check <=  $xem_amount_transaction_check ){
-					$message_amount_match = true;
 					$matched_transaction = $t;
 					break;
 				}
 			}
-			//if we also do only match on amount we try it here, but then the amount must be axactly.
-			if(!$message_amount_match && $match_amount){
-                $xem_amount_lock_check = round($xem_amount_locked / 1000000,$decimal_amount_precision);
-                $xem_amount_transaction_check = round($t->transaction->amount / 1000000,$decimal_amount_precision);
-				if( $xem_amount_lock_check ===  $xem_amount_transaction_check ){
-					$amount_match = true;
-					$matched_transaction = $t;
-					break;
-				}
-			}
-
 		}
 
 		//Check if we found a matched transaction
