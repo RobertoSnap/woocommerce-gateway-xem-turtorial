@@ -1,0 +1,60 @@
+#xem-form{
+
+}
+#xem-qr {
+    padding-top: 20px;
+}
+#xem-qr  > img {
+    float: none !important;
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+    max-height: none !important;
+}
+#xem-qr-desc{
+    padding-top: 20px;
+
+}
+
+#xem-amount-wrapper{
+    clear: both;
+    cursor: pointer;
+}
+/*Ads the icon after NEM amount for copy*/
+#xem-amount-wrapper:after{
+    content: url('../img/copy.png');
+    padding-left: 5px;
+}
+
+#xem-address-wrapper{
+    clear: both;
+    cursor: pointer;
+}
+/*Ads the icon after NEM address for copy*/
+#xem-address-wrapper:after{
+    content: url('../img/copy.png');
+    padding-left: 5px;
+}
+#xem-ref-wrapper{
+    clear: both;
+    cursor: pointer;
+}
+/*Ads the icon after NEM address for copy*/
+#xem-ref-wrapper:after{
+    content: url('../img/copy.png');
+    padding-left: 5px;
+}
+
+.xem-payment-desc-row{
+    display: block;
+    margin-bottom: 5px;
+}
+.xem-label-for{
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.xem-label{
+    float: right;
+    font-size: 16px;
+}

@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Xem Gateway\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-22 09:39+0000\n"
+"PO-Revision-Date: 2017-05-22 09:43+0000\n"
+"Last-Translator: admin <rpe@outlook.com>\n"
+"Language-Team: \n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: woocommerce-gateway-xem.php:274
+#, php-format
+msgid ""
+"WooCommerce XEM - The minimum PHP version required for this plugin is %1$s. "
+"You are running %2$s."
+msgstr ""
+
+#: woocommerce-gateway-xem.php:280
+msgid "WooCommerce XEM requires WooCommerce to be activated to work."
+msgstr ""
+
+#: woocommerce-gateway-xem.php:284
+#, php-format
+msgid ""
+"WooCommerce XEM - The minimum WooCommerce version required for this plugin "
+"is %1$s. You are running %2$s."
+msgstr ""
+
+#: woocommerce-gateway-xem.php:290
+msgid "WooCommerce XEM - cURL is not installed."
+msgstr ""
+
+#: woocommerce-gateway-xem.php:305
+msgid "Settings"
+msgstr ""
+
+#: includes/class-wc-gateway-xem.php:21
+msgid "XEM"
+msgstr ""
+
+#: includes/class-wc-gateway-xem.php:22
+msgid ""
+"XEM works by showing a QR code and let customers pay XEM to your XEM wallet "
+"for orders in you shop."
+msgstr ""
+
+#: includes/class-wc-gateway-xem.php:113
+msgid "Amount XEM:"
+msgstr ""
+
+#: includes/class-wc-gateway-xem.php:118
+msgid "Address:"
+msgstr ""
+
+#: includes/class-wc-gateway-xem.php:123
+msgid "Reference:"
+msgstr ""
+
+#: includes/class-wc-gateway-xem.php:176
+msgid ""
+"A XEM payment has not been registered to this checkout. Please contact our "
+"support department."
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:10
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:11
+msgid "Enable XEM payments"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:17
+msgid "Title"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:19
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:20
+msgid "XEM (Digital currency)"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:24
+msgid "Description"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:26
+msgid ""
+"This controls the description which the user sees during checkout. Leave it "
+"empty and it will not show."
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:27
+msgid "Pay with XEM."
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:31
+msgid "XEM address"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:33
+msgid "Input the XEM address where you want customers to pay XEM too."
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:39
+msgid "Match amount"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:40
+msgid "Match transactions on Amount"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:42
+msgid ""
+"When customers paid in checkout and the system tried to match a transfer to "
+"your account, it will also try to match it on amount."
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:47
+msgid "Show prices in XEM"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:50
+msgid "Show prices on store pages in XEM"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:54
+msgid "Default prices"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:55
+msgid "Only XEM price"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:56
+msgid "Default and XEM prices"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:60
+msgid "Logging"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:61
+msgid "Log debug messages"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:63
+msgid "Save debug messages to the WooCommerce System Status log."
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:68
+msgid "Test"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:69
+msgid "Run in TESTNET"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:71
+msgid "Will run payments on the testnet"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:76
+msgid "TESTNET XEM address"
+msgstr ""
+
+#: includes/wc-gateway-xem-settings.php:78
+msgid "TESTNET XEM address. Should always start with T"
+msgstr ""
+
+#. Name of the plugin
+msgid "WooCommerce Xem Gateway"
+msgstr ""
+
+#. Description of the plugin
+msgid "Take XEM coin payments inn your store."
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wordpress.org/plugins/woocommerce-gateway-xem/"
+msgstr ""
+
+#. Author of the plugin
+msgid "Robin Pedersen"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://nem.today"
+msgstr ""
