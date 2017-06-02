@@ -192,7 +192,7 @@ class WC_Gateway_Xem extends WC_Payment_Gateway {
 
 
         // Mark as on-hold (we're awaiting the cheque)
-        $order->update_status('on-hold', __('Awaiting XEM payment', 'woocommerce'));
+        $order->update_status('on-hold', __('Awaiting XEM payment', 'woocommerce-gateway-xem'));
         update_post_meta($order_id, 'xem_payment_hash', $xem_payment->meta->hash->data);
         update_post_meta($order_id, 'xem_payment_ref', $this->hex2str($xem_payment->transaction->message->payload));
         update_post_meta($order_id, 'xem_payment_amount', $xem_payment->transaction->amount);
