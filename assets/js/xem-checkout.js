@@ -24,7 +24,7 @@
                     "type": 2,
                     "data": {
                         "addr": this.xemAddress.toUpperCase().replace(/-/g, ''),
-                        "amount": this.xemAmount * 1000000,
+                        "amount": this.xemAmount,
                         "msg": this.xemRef,
                         "name": "XEM payment to " + wc_xem_params.store
                     }

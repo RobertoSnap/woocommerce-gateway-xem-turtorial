@@ -106,8 +106,12 @@ class Xem_Currency {
 				self::error("Currency not supported");
 		}
 		//Check if amount got set and round it.
-		if (!empty($callback['amount']) && $callback['amount'] > 0)
-			return round( $callback['amount'], 6, PHP_ROUND_HALF_UP );
+		if (!empty($callback['amount']) && $callback['amount'] > 0){
+			$amount_xem = round( $callback['amount'], 6, PHP_ROUND_HALF_UP );
+			$amount_micro_xem = $amount_xem * 1000000;
+			return (int)$amount_micro_xem;
+		}
+
 		return self::error("Something wrong with amount");
 
 	}

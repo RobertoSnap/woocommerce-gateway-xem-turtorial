@@ -82,7 +82,6 @@ class Xem_Ajax {
 		//Check the hash passed for to js for doing ajax calls.
 		\check_ajax_referer('woocommerce-xem', 'nounce');
 
-
 		/*
 		 *
 		 * Lets prepare some variables we need
@@ -128,7 +127,7 @@ class Xem_Ajax {
 			//Check for matching message
 			if( $ref_id === $message ){
 				//Convert our checkout amount to our decimal presiscion point
-                $xem_amount_lock_check = round($xem_amount_locked ,$decimal_amount_precision);
+                $xem_amount_lock_check = round(self::micro_xem_to_xem($xem_amount_locked ,$decimal_amount_precision));
 				//We allways work with 6 decimals from class-xem-currency.php, but amounts from NEM API come in Micro XEM. Dividing it on 1000000 (6 zeroes) gives us  but when comparing amounts from blockchain we need to have it in the Micro XEM standard that is without decimals. 1,000000 XEM = 1000000 Micro XEM
                 $xem_amount_transaction_check = round( self::micro_xem_to_xem($t->transaction->amount),$decimal_amount_precision);
 				//Check for matching, only need to check that its atleast

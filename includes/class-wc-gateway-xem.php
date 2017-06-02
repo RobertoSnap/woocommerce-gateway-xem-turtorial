@@ -107,7 +107,7 @@ class WC_Gateway_Xem extends WC_Payment_Gateway {
 
         echo '<div class="xem-payment-desc-row">';
         echo '<label class="xem-label-for">' . __('Amount XEM:', 'woocommerce-gateway-xem') . '</label>';
-        echo '<label id="xem-amount-wrapper" class="xem-label xem-amount" data-clipboard-text="' . esc_attr($xem_amount) . '">' . esc_attr($xem_amount) . '</label>';
+        echo '<label id="xem-amount-wrapper" class="xem-label xem-amount" data-clipboard-text="' . esc_attr($this->micro_xem_to_xem($xem_amount)) . '">' . esc_attr($this->micro_xem_to_xem($xem_amount)) . '</label>';
         echo '</div>';
 
         echo '<div class="xem-payment-desc-row">';
@@ -225,47 +225,9 @@ class WC_Gateway_Xem extends WC_Payment_Gateway {
         return $str;
     }
 
-    /**
-     * Get Xem amount to pay
-     *
-     * @param float $total Amount due.
-     * @param string $currency Accepted currency.
-     *
-     * @return float|int
-     */
-    public function get_xem_amount( $total, $currency = '' ) {
-        if ( !$currency ) {
-            $currency = get_woocommerce_currency();
-        }
-        /*Todo: Add filter for supported currencys. Also, could add to tri-exchange if currency outside polo currency*/
-        $supported_currencys = array();
-
-        switch ( strtoupper($currency) ) {
-            // Zero decimal currencies.
-            case 'BIF' :
-            case 'CLP' :
-            case 'DJF' :
-            case 'GNF' :
-            case 'JPY' :
-            case 'KMF' :
-            case 'KRW' :
-            case 'MGA' :
-            case 'PYG' :
-            case 'RWF' :
-            case 'VND' :
-            case 'VUV' :
-            case 'XAF' :
-            case 'XOF' :
-            case 'XPF' :
-                $total = absint($total);
-                break;
-            default :
-                $total = round($total, 2) * 100; // In cents.
-                break;
-        }
-
-        return $total;
-    }
+	public function micro_xem_to_xem($amount){
+		return $amount / 1000000;
+	}
 
     /**
      * Init settings for gateways.
