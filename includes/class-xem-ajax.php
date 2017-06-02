@@ -79,57 +79,67 @@ class Xem_Ajax {
     }
 
 	public static function check_for_payment( ){
+		//Check the hash passed for to js for doing ajax calls.
 		\check_ajax_referer('woocommerce-xem', 'nounce');
-		//This token is user spesific and expires each day.
+
+
+		/*
+		 *
+		 * Lets prepare some variables we need
+		 * */
+
+		//The hash should be the same as generated in class-wc-gateway-xem.php.
 		$ref_id = wp_create_nonce( "3h62h6u26h42h6i2462h6u4h624" );
 
-		//Get information from the Payment gateway
-		if(!class_exists('WC_Gateway_Xem')){
-			return error("Please setup XEM payment");
-		}
-
+		//Get settings from the payment gateway
         $xem_options = get_option('woocommerce_xem_settings');
 		$xem_address = $xem_options['xem_address'];
-		$match_amount = $xem_options['match_amount'];
         $xem_test = 'yes' === $xem_options['test'];
         if($xem_test){
             $xem_address = $xem_options['test_xem_address'];
         }
 
-		//If we also want to do amount matching
-		$amount = WC()->cart->total;
-		$currency = strtoupper( get_woocommerce_currency() );
-		//Todo: If locked and new amount diff to much, we can call a refresh.
-		//Todo: If too high difference becuase of price volatility, add notice to lock in new amount. The customer has probably waited to long.
-		//$xem_amout = Xem_Currency::get_xem_amount($amount, $currency);
-		$xem_amount_locked = WC()->session->get('xem_amount');
-		//Remove the currency
-		$xem_amount_locked = intval(str_replace('.', '', $xem_amount_locked));
-
-
-		//Get latest transactions from NEW
+		//Get the latest transaction on this NEM account
 		include_once ('class-nem-api.php');
 		$transactions = NemApi::get_latest_transactions($xem_address,$xem_test);
 
+		//If we dident get any transactions, return an error.
 		if(!$transactions){
 			self::error("No transactions from NEM");
 		}
-		$message_amount_match = false;
+
+		//Get the total amount for the shopping cart from the variable we set during checkout init.
+		//Todo: If locked and new amount diff to much, we can call a refresh.
+		//Todo: If too high difference becuase of price volatility, add notice to lock in new amount. The customer has probably waited to long.
+		$xem_amount_locked = WC()->session->get('xem_amount');
+
+		/*
+		 *
+		 * Lets do the matching
+		 * */
+		//Decleare the variable to false to begin with
 		$matched_transaction = false;
+		//At what presiscion should we compare amounts. Because mobile wallet uses 1 decimals, we use the same here.
 		$decimal_amount_precision = 1;
+
 		foreach ($transactions as $key => $t){
+			//Decrypt the transactions message
 			$message = self::hex2str($t->transaction->message->payload);
 			//Check for matching message
 			if( $ref_id === $message ){
+				//Convert our checkout amount to our decimal presiscion point
+                $xem_amount_lock_check = round($xem_amount_locked ,$decimal_amount_precision);
+				//We allways work with 6 decimals from class-xem-currency.php, but amounts from NEM API come in Micro XEM. Dividing it on 1000000 (6 zeroes) gives us  but when comparing amounts from blockchain we need to have it in the Micro XEM standard that is without decimals. 1,000000 XEM = 1000000 Micro XEM
+                $xem_amount_transaction_check = round( self::micro_xem_to_xem($t->transaction->amount),$decimal_amount_precision);
 				//Check for matching, only need to check that its atleast
-                $xem_amount_lock_check = round($xem_amount_locked / 1000000,$decimal_amount_precision);
-                $xem_amount_transaction_check = round($t->transaction->amount / 1000000,$decimal_amount_precision);
 				if( $xem_amount_lock_check <=  $xem_amount_transaction_check ){
 					$matched_transaction = $t;
 					break;
 				}
+				//todo: if user paid some of the amount but not whole, give them some feedback.
 			}
 		}
+
 
 		//Check if we found a matched transaction
 		//Then check that this transaction is not already connected to an order
@@ -166,6 +176,10 @@ class Xem_Ajax {
 		} else {
 			return true;
 		}
+	}
+
+	private static function micro_xem_to_xem($amount){
+		return $amount / 1000000;
 	}
 
 	private static function hex2str($hex) {
