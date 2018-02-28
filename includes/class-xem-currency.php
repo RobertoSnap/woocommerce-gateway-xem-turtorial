@@ -147,10 +147,7 @@ class Xem_Currency {
                 self::error("Response body empty");
             	}
             	//Decode the json string
-            	$data_uah = json_decode($response_uah->data['body']);
-            	//Set a transient that expires each minute
-            	//set_transient( 'xem_currency_data', $response->data['body'], 60  );
-		
+            	$data_uah = json_decode($response_uah->data['body'])		
 		//Check that data is not empty and it is an array.
 		if(empty($data_uah) && ! is_array($data_uah)){
 			self::error("Reponse empty or not array");
@@ -159,16 +156,13 @@ class Xem_Currency {
 		if(empty($data_uah[0]) && $data_uah[0]->cc === "USD"){
 			self::error("Data not set or not USD");
 		}
-
 		//Done checking, lets prepare callback
 		$callback = array(
 			$data_uah[0]
 		);
-
 		$rate = $data_uah[0]->rate;
 
 		return floatval($rate);
-
 	}
 
 }
