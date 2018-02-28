@@ -132,40 +132,40 @@ class Xem_Currency {
 	
 	private static function get_rate_uah() {
 		//Get UAH to USD rate
-		$response2 = wp_remote_get('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json&valcode=USD');
-		if ( !$response2 ) {
+		$response_uah = wp_remote_get('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json&valcode=USD');
+		if ( !$response_uah ) {
                 return self::error("No reponse from currency server");
             	}
             	//standarise the response
-            	$response2 = rest_ensure_response($response2);
+            	$response_uah = rest_ensure_response($response_uah);
             	//Check for valid response
-            	if ( $response2->status !== 200 ) {
+            	if ( $response_uah->status !== 200 ) {
                 self::error("Not 200 response");
             	}
             	//Check for body element
-            	if ( empty($response2->data['body']) ) {
+            	if ( empty($response_uah->data['body']) ) {
                 self::error("Response body empty");
             	}
             	//Decode the json string
-            	$data2 = json_decode($response2->data['body']);
+            	$data_uah = json_decode($response_uah->data['body']);
             	//Set a transient that expires each minute
             	//set_transient( 'xem_currency_data', $response->data['body'], 60  );
 		
 		//Check that data is not empty and it is an array.
-		if(empty($data2) && ! is_array($data2)){
+		if(empty($data_uah) && ! is_array($data_uah)){
 			self::error("Reponse empty or not array");
 		}
 		//Do the calculation
-		if(empty($data2[0]) && $data2[0]->cc === "USD"){
+		if(empty($data_uah[0]) && $data_uah[0]->cc === "USD"){
 			self::error("Data not set or not USD");
 		}
 
 		//Done checking, lets prepare callback
 		$callback = array(
-			$data2[0]
+			$data_uah[0]
 		);
 
-		$rate = $data2[0]->rate;
+		$rate = $data_uah[0]->rate;
 
 		return floatval($rate);
 
