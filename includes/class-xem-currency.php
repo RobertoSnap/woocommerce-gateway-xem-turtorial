@@ -91,7 +91,7 @@ class Xem_Currency {
 			case 'USD':
 				$callback['amount'] = $amount / $data[0]->price_usd;
 				break;
-			ase 'UAH':				
+			case 'UAH':				
 				$callback['amount'] = $amount / (floatval($data[0]->price_usd) * self::get_rate_uah());
 				break;
 			case 'BTC':
